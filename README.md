@@ -1,0 +1,2 @@
+# HackerRank SQL Solutions
+ This repository contains my SQL solutions to HackerRank challenges, organized by difficulty level: Easy, Medium, and Hard. Each solution is designed to demonstrate various SQL techniques and best practices, with clear comments to enhance understanding. This collection serves as a practical guide for anyone looking to improve their SQL skills while tackling real-world problem-solving scenarios on HackerRank.
