@@ -1,5 +1,6 @@
 -- Problem: Weather Observation Station 5
--- Difficulty: Intermediate
+-- Difficulty: Easy
+-- Skills: SQL(Intermediate)
 
 -- SQL Schema
 -- Table: STATION
