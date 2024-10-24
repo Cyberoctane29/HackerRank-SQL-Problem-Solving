@@ -1,5 +1,6 @@
 -- Problem: Japanese Cities' Names
 -- Difficulty: Easy
+-- Skills: SQL (Basic)
 
 -- SQL Schema
 -- Table: CITY
