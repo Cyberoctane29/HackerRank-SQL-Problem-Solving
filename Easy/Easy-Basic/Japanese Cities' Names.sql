@@ -1,5 +1,6 @@
 -- Problem: Japanese Cities' Names
 -- Difficulty: Easy
+-- Skills: SQL (Basic)
 
 -- SQL Schema
 -- Table: CITY
@@ -12,6 +13,7 @@
 -- | DISTRICT  | VARCHAR2(20) |
 -- | POPULATION| NUMBER       |
 -- +-----------+--------------+
+
 -- The CITY table contains data about various cities, including their names, country codes, districts, and populations.
 
 -- Problem Statement

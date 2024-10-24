@@ -1,5 +1,6 @@
 -- Problem: Select All
 -- Difficulty: Easy
+-- Skills: SQL (Basic)
 
 -- SQL Schema
 -- Table: CITY

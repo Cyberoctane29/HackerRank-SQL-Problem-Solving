@@ -1,5 +1,6 @@
 -- Problem: Weather Observation Station 10
--- Difficulty: Basic
+-- Difficulty: Easy
+-- Skills: SQL (Basic)
 
 -- SQL Schema
 -- Table: STATION

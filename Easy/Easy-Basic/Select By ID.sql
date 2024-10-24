@@ -1,5 +1,6 @@
 -- Problem: Select By ID
 -- Difficulty: Easy
+-- Skills: SQL (Basic)
 
 -- SQL Schema
 -- Table: CITY
