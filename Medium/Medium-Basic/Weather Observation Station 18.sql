@@ -25,12 +25,12 @@ SELECT
 FROM 
     STATION;
 
--- Intuition for the Query:
+-- Intuition:
 -- I need to calculate the Manhattan Distance, which is the sum of the absolute differences 
 -- between the corresponding coordinates of two points. In this case, the points are determined by 
 -- the minimum and maximum values of LAT_N and LONG_W in the STATION table.
 
--- Explanation for the Query:
+-- Explanation:
 -- 1. `MAX(LAT_N)` retrieves the maximum value of Northern Latitude, which represents the coordinate c.
 -- 2. `MIN(LAT_N)` retrieves the minimum value of Northern Latitude, which represents the coordinate a.
 -- 3. `MAX(LONG_W)` retrieves the maximum value of Western Longitude, representing the coordinate d.
