@@ -27,12 +27,12 @@ SELECT
 FROM 
     STATION;
 
--- Intuition for the Query:
+-- Intuition:
 -- I need to calculate the Euclidean Distance between two points in a 2D plane, 
 -- which is determined by the Pythagorean theorem. The distance is the square root 
 -- of the sum of the squares of the differences between the corresponding coordinates.
 
--- Explanation for the Query:
+-- Explanation:
 -- 1. `MAX(LAT_N)` retrieves the maximum Northern Latitude, representing the coordinate b.
 -- 2. `MIN(LAT_N)` retrieves the minimum Northern Latitude, representing the coordinate a.
 -- 3. `MAX(LONG_W)` retrieves the maximum Western Longitude, representing the coordinate d.
