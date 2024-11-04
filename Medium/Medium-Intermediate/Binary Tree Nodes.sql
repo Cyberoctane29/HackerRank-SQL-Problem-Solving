@@ -29,12 +29,12 @@ FROM
 ORDER BY 
     N;
 
--- Intuition for the Query:
+-- Intuition:
 -- I need to determine the type of each node by examining its parent-child relationships.
 -- Specifically, the characteristics of root, leaf, and inner nodes depend on their presence 
 -- as parents or children in the tree.
 
--- Explanation for the Query:
+-- Explanation:
 -- 1. `P IS NULL`: This condition identifies root nodes because a root node has no parent.
 -- 2. `N NOT IN (SELECT P FROM BST WHERE P IS NOT NULL)`: This subquery identifies leaf nodes by selecting nodes 
 --    that do not appear in the `P` column, meaning they are not parents to any other nodes.
