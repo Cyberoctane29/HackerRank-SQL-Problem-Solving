@@ -92,10 +92,10 @@ FROM TableName
 WHERE some_condition;
 
 -- Intuition:
--- [Explain why this approach works effectively.]
+-- [Describe the core idea behind solving this problem. Explain the thought process used to arrive at the solution.]
 
 -- Explanation:
--- [Break down the logic of the query step by step.]
+-- [Explain why this approach works effectively and break down the logic of the code step by step.]
 ```
 
 Whether you're just starting with SQL or looking to refine your skills, I hope this resource helps you tackle real-world problems and improves your problem-solving ability.
