@@ -2,7 +2,7 @@
 
 Welcome to my **HackerRank SQL Solutions** repository!
 
-This repository contains my SQL solutions to HackerRank challenges, systematically categorized by difficulty level:
+This repository contains my SQL problem solving approach and solutions to HackerRank challenges, systematically categorized by difficulty level:
 
 - **Easy**
   - **Basic**
