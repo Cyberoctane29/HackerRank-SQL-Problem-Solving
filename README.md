@@ -1,6 +1,6 @@
 # 🗄️ HackerRank SQL Problem Solving
 
-Welcome to my **HackerRank SQL Solutions** repository!
+Welcome to my **HackerRank SQL Problem Solving** repository!
 
 This repository contains my SQL problem solving approach and solutions to HackerRank challenges, systematically categorized by difficulty level:
 
