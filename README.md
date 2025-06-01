@@ -1,4 +1,4 @@
-# 🗄️ HackerRank SQL Solutions
+# 🗄️ HackerRank SQL Problem Solving
 
 Welcome to my **HackerRank SQL Solutions** repository!
 
