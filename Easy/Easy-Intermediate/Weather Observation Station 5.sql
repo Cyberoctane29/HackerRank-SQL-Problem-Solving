@@ -22,24 +22,26 @@
 
 -- Solution
 
--- Query for the city with the shortest name
-SELECT CITY, LENGTH(CITY) AS Length 
-FROM STATION 
-ORDER BY LENGTH(CITY) ASC, CITY 
-LIMIT 1;
-
--- Query for the city with the longest name
-SELECT CITY, LENGTH(CITY) AS Length 
-FROM STATION 
-ORDER BY LENGTH(CITY) DESC, CITY 
-LIMIT 1;
+(
+  SELECT city, LENGTH(city) AS len
+  FROM STATION
+  ORDER BY LENGTH(city) ASC, city
+  LIMIT 1
+)
+UNION ALL
+(
+  SELECT city, LENGTH(city) AS len
+  FROM STATION
+  ORDER BY LENGTH(city) DESC, city
+  LIMIT 1
+);
 
 -- Intuition:
--- I want to identify both the shortest and longest city names from the STATION table.
--- By ordering the results by name length and then alphabetically, I can ensure that I select the appropriate cities.
+-- We want to display both the shortest and longest city names from the STATION table in a single result set.
+-- Using two ordered queries (one ascending for the shortest, one descending for the longest) and combining them with UNION ALL ensures both outputs appear together.
 
 -- Explanation:
--- 1. In the first query, I select the `CITY` and the length of the `CITY` name using `LENGTH(CITY)`.
--- 2. I order the results in ascending order based on the length of the city name, followed by alphabetical order.
--- 3. The `LIMIT 1` clause restricts the output to just the shortest city name.
--- 4. The second query follows the same logic but orders the results in descending order to find the longest city name.
+-- - The first SELECT retrieves the city with the minimum length, breaking ties alphabetically.
+-- - The second SELECT retrieves the city with the maximum length, also breaking ties alphabetically.
+-- - UNION ALL combines both queries into a single result set without removing duplicates.
+-- - This approach returns exactly two rows: one for the shortest city name and one for the longest.
