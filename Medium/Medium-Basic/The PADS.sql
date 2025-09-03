@@ -19,24 +19,20 @@
 
 -- First Query
 SELECT 
-    CONCAT(name, 
-           RPAD(LPAD(LEFT(Occupation, 1), 2, '('), 3, ')')
-          ) 
-FROM 
-    OCCUPATIONS 
-ORDER BY 
-    name;
+    CONCAT(name, '(', LEFT(Occupation, 1), ')')
+FROM OCCUPATIONS
+ORDER BY name;
 
 -- Intuition for the First Query:
--- I want to create a formatted string for each name that includes the first letter of their occupation in parentheses. 
--- This involves string manipulation functions to achieve the desired format.
+-- I want to display each person's name immediately followed by the first letter 
+-- of their occupation enclosed in parentheses. This can be achieved by combining 
+-- simple string concatenation with the LEFT function.
 
 -- Explanation for the First Query:
--- 1. `LEFT(Occupation, 1)` retrieves the first letter of the occupation.
--- 2. `LPAD(..., 2, '(')` pads the letter with an opening parenthesis to align it with the rest of the name.
--- 3. `RPAD(..., 3, ')')` adds a closing parenthesis after the letter.
--- 4. `CONCAT(name, ...)` combines the name with the formatted occupation letter.
--- 5. The `ORDER BY name` clause sorts the results alphabetically by name.
+-- 1. `LEFT(Occupation, 1)` extracts the first character of the occupation (e.g., 'D' for Doctor).
+-- 2. `'('` and `')'` are added around the extracted letter to form the desired format.
+-- 3. `CONCAT(name, '(', LEFT(Occupation, 1), ')')` merges the name with the formatted occupation initial.
+-- 4. The `ORDER BY name` clause arranges the output alphabetically by name.
 
 -- Second Query
 SELECT 
