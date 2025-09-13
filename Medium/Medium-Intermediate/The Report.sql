@@ -29,7 +29,41 @@
 -- 4. For students with grades 1-7, order them by marks in ascending order.
 -- 5. For students with grades lower than 8, use "NULL" as their name.
 
--- Solution using Common Table Expression (CTE)
+-- Solution - 1 using direct JOIN with Grades table
+
+SELECT
+    CASE
+        WHEN grades.grade >= 8 THEN students.name
+        ELSE NULL
+    END AS name,
+    grades.grade,
+    students.marks
+FROM students
+JOIN grades 
+  ON students.marks BETWEEN grades.min_mark AND grades.max_mark
+ORDER BY 
+    grades.grade DESC, 
+    name, 
+    students.marks;
+
+-- Intuition:
+-- The Grades table already provides the mapping between marks and grade ranges.
+-- By joining Students with Grades, we can assign the correct grade to each student.
+-- The CASE expression ensures names are only displayed when grade ≥ 8, otherwise NULL.
+-- The ordering then places higher grades first, sorts names alphabetically for top graders,
+-- and sorts by marks for lower grades.
+
+-- Explanation:
+-- 1. The JOIN matches each student’s marks to the correct grade range from the Grades table.
+-- 2. The CASE expression:
+--    - Shows the student’s name only if their grade is 8 or above.
+--    - Replaces the name with NULL if their grade is below 8.
+-- 3. The ORDER BY logic:
+--    - Grades are sorted in descending order.
+--    - For grades ≥ 8, names are ordered alphabetically.
+--    - For grades < 8, since names are NULL, the tiebreaker becomes marks in ascending order.
+
+-- Solution - 2 using Common Table Expression (CTE)
 
 WITH CTE AS (
     SELECT 
