@@ -44,51 +44,41 @@
 
 -- Solution
 SELECT 
-    hacker_id, 
-    name
-FROM (
-    SELECT 
-        hacker_id,
-        name,
-        COUNT(DISTINCT challenge_id) AS cnt 
-    FROM (
-        SELECT 
-            su.hacker_id,
-            ha.name,
-            su.challenge_id,
-            ch.difficulty_level,
-            su.score AS su_score,
-            di.score AS di_score
-        FROM 
-            submissions AS su
-        LEFT JOIN 
-            hackers AS ha ON su.hacker_id = ha.hacker_id
-        LEFT JOIN 
-            challenges AS ch ON su.challenge_id = ch.challenge_id
-        LEFT JOIN 
-            difficulty AS di ON ch.difficulty_level = di.difficulty_level
-        WHERE 
-            su.score = di.score  -- Only select submissions with full scores
-    ) AS CTE
-    GROUP BY 
-        hacker_id, name
-    HAVING 
-        COUNT(DISTINCT challenge_id) > 1  -- Only hackers with more than one full score
-) AS Result
+    s.hacker_id,
+    h.name,
+    COUNT(DISTINCT s.challenge_id) AS challenge_count
+FROM 
+    Submissions AS s
+JOIN Challenges AS c 
+    ON s.challenge_id = c.challenge_id
+JOIN Difficulty AS d 
+    ON c.difficulty_level = d.difficulty_level
+JOIN Hackers AS h 
+    ON s.hacker_id = h.hacker_id
+WHERE 
+    s.score = d.score  
+GROUP BY 
+    s.hacker_id, h.name
+HAVING 
+    COUNT(DISTINCT s.challenge_id) > 1   
 ORDER BY 
-    cnt DESC, 
-    hacker_id ASC;
+    challenge_count DESC, 
+    s.hacker_id ASC;
+
 
 -- Intuition:
--- I first select full-score submissions by matching each submission score with the maximum possible score for its challenge difficulty level.
--- In the outer query, I count unique full-scored challenges for each hacker to filter hackers with more than one full-scored challenge.
--- The final result sorts by the count of full scores in descending order and by hacker_id in ascending order for ties.
+-- The task is to find hackers who achieved full scores in more than one challenge.
+-- A full score means the submission score matches the maximum score allowed for that challenge’s difficulty level.
+-- By joining Submissions with Challenges, Difficulty, and Hackers, we can map each submission to the hacker and the challenge’s required score.
+-- Counting distinct challenge_ids per hacker lets us filter those with more than one full-scored challenge.
+-- Sorting by challenge count (descending) and hacker_id (ascending) ensures the correct ranking.
 
 -- Explanation:
--- I first filter submissions by comparing the score with the maximum score available for the corresponding difficulty level (`su.score = di.score`).
--- Then, in the inner query (CTE), I gather all submissions that resulted in full scores for each hacker, linking them to challenge details.
--- In the outer query, I group the results by `hacker_id` and `name`, counting the distinct challenges in which each hacker achieved a full score.
--- Using `HAVING COUNT(DISTINCT challenge_id) > 1`, I ensure only hackers who earned full scores in more than one challenge are selected.
--- Finally, I sort the results by the count of challenges in descending order and by `hacker_id` in ascending order for those with the same count.
--- The use of `LEFT JOIN` ensures that all submissions are matched with corresponding challenge and difficulty data, even if some challenges are not submitted. This guarantees an accurate full-score comparison.
-
+-- 1. The WHERE clause `s.score = d.score` filters submissions to only those where the hacker achieved the maximum possible score for that challenge.
+-- 2. Joins:
+--    - Submissions → Challenges: links submissions to the challenge attempted.
+--    - Challenges → Difficulty: ensures access to the difficulty’s maximum score.
+--    - Submissions → Hackers: brings in hacker details (name, ID).
+-- 3. In the GROUP BY, each hacker’s distinct full-scored challenges are counted using `COUNT(DISTINCT s.challenge_id)`.
+-- 4. The HAVING clause ensures we only keep hackers with more than one such challenge.
+-- 5. The ORDER BY sorts first by the number of full-scored challenges (descending), then by hacker_id (ascending) for tie-breaking.
