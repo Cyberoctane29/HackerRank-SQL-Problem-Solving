@@ -44,41 +44,42 @@
 
 -- Solution
 SELECT 
-    s.hacker_id,
-    h.name,
-    COUNT(DISTINCT s.challenge_id) AS challenge_count
-FROM 
-    Submissions AS s
-JOIN Challenges AS c 
-    ON s.challenge_id = c.challenge_id
-JOIN Difficulty AS d 
-    ON c.difficulty_level = d.difficulty_level
-JOIN Hackers AS h 
-    ON s.hacker_id = h.hacker_id
-WHERE 
-    s.score = d.score  
-GROUP BY 
-    s.hacker_id, h.name
-HAVING 
-    COUNT(DISTINCT s.challenge_id) > 1   
+    hacker_id,
+    name
+FROM (
+    SELECT 
+        s.hacker_id,
+        h.name,
+        COUNT(s.challenge_id) AS challenge_count
+    FROM 
+        Submissions AS s
+    JOIN Challenges AS c 
+        ON s.challenge_id = c.challenge_id
+    JOIN Difficulty AS d 
+        ON c.difficulty_level = d.difficulty_level
+    JOIN Hackers AS h 
+        ON s.hacker_id = h.hacker_id
+    WHERE 
+        s.score = d.score  
+    GROUP BY 
+        s.hacker_id, h.name
+    HAVING 
+        COUNT(s.challenge_id) > 1 
+) AS ChallengeCount
 ORDER BY 
     challenge_count DESC, 
-    s.hacker_id ASC;
-
+    hacker_id ASC;
 
 -- Intuition:
--- The task is to find hackers who achieved full scores in more than one challenge.
--- A full score means the submission score matches the maximum score allowed for that challenge’s difficulty level.
--- By joining Submissions with Challenges, Difficulty, and Hackers, we can map each submission to the hacker and the challenge’s required score.
--- Counting distinct challenge_ids per hacker lets us filter those with more than one full-scored challenge.
--- Sorting by challenge count (descending) and hacker_id (ascending) ensures the correct ranking.
+-- To identify top competitors, I need to check which hackers achieved full marks in multiple challenges.
+-- A submission is considered full score when the submission score equals the maximum score defined for the challenge’s difficulty level.
+-- After filtering such submissions, I count how many challenges each hacker fully solved.
+-- Finally, I keep only those hackers with more than one full score and sort them by their count (descending) and hacker_id (ascending).
 
 -- Explanation:
--- 1. The WHERE clause `s.score = d.score` filters submissions to only those where the hacker achieved the maximum possible score for that challenge.
--- 2. Joins:
---    - Submissions → Challenges: links submissions to the challenge attempted.
---    - Challenges → Difficulty: ensures access to the difficulty’s maximum score.
---    - Submissions → Hackers: brings in hacker details (name, ID).
--- 3. In the GROUP BY, each hacker’s distinct full-scored challenges are counted using `COUNT(DISTINCT s.challenge_id)`.
--- 4. The HAVING clause ensures we only keep hackers with more than one such challenge.
--- 5. The ORDER BY sorts first by the number of full-scored challenges (descending), then by hacker_id (ascending) for tie-breaking.
+-- 1. The JOINs connect Submissions with Challenges, Difficulty, and Hackers to gather all relevant details for each submission.
+-- 2. The WHERE clause ensures that only submissions with full scores (`s.score = d.score`) are included.
+-- 3. In the grouped query, I aggregate by hacker_id and name, and count how many challenges each hacker fully solved.
+-- 4. The HAVING clause filters hackers who have more than one full-scored challenge.
+-- 5. The outer SELECT retrieves the hacker_id and name for those qualified hackers.
+-- 6. The final ORDER BY sorts primarily by the number of full-scored challenges in descending order, and uses hacker_id ascending to break ties.
